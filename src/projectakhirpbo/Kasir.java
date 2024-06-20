@@ -8,7 +8,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
+import java.sql.ResultSet;
+import net.proteanit.sql.DbUtils;
 //import java.sql.SQLException;
 //import java.sql.Statement;
 
@@ -20,6 +21,20 @@ public class Kasir extends javax.swing.JFrame {
 
     public Kasir() {
         initComponents();
+        ReadSeller();
+    }
+    
+    public void ReadSeller(){
+       try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Minimarket", "root", "");
+            String query = "SELECT * FROM tbl_kasir";
+            PreparedStatement pst = con.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            tbl_kasir.setModel(DbUtils.resultSetToTableModel(rs));
+       }catch (Exception e){
+           e.printStackTrace();
+       }
     }
 
     @SuppressWarnings("unchecked")
@@ -75,7 +90,7 @@ public class Kasir extends javax.swing.JFrame {
         jenis_kelamin.setBackground(new java.awt.Color(0, 153, 255));
         jenis_kelamin.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jenis_kelamin.setForeground(new java.awt.Color(255, 255, 255));
-        jenis_kelamin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-Laki", "Perempuan", " " }));
+        jenis_kelamin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-Laki", "Perempuan" }));
         jenis_kelamin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jenis_kelaminActionPerformed(evt);
@@ -96,11 +111,21 @@ public class Kasir extends javax.swing.JFrame {
         update_btn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         update_btn.setForeground(new java.awt.Color(0, 0, 0));
         update_btn.setText("Update");
+        update_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                update_btnMouseClicked(evt);
+            }
+        });
 
         delete_btn.setBackground(new java.awt.Color(255, 0, 51));
         delete_btn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         delete_btn.setForeground(new java.awt.Color(255, 255, 255));
         delete_btn.setText("Delete");
+        delete_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                delete_btnMouseClicked(evt);
+            }
+        });
 
         password.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -248,8 +273,8 @@ public class Kasir extends javax.swing.JFrame {
     private void add_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_btnMouseClicked
         String id = id_kasir.getText();
         String name = nama_kasir.getText();
-        String gender = jenis_kelamin.getSelectedItem().toString();
         String pass = password.getText();
+        String gender = jenis_kelamin.getSelectedItem().toString();
 
         if (id.isEmpty() || name.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Mohon mengisi semua field", "Error", JOptionPane.ERROR_MESSAGE);
@@ -259,12 +284,12 @@ public class Kasir extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Minimarket", "root", "");
-            String query = "INSERT INTO tbl_kasir (id_kasir, nama_kasir, password, jenis_kelamin) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO tbl_kasir VALUES (?, ?, ?, ?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, id);
             pst.setString(2, name);
-            pst.setString(3, gender);
-            pst.setString(4, pass);
+            pst.setString(3, pass);
+            pst.setString(4, gender);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(this, "Data kasir berhasil ditambahkan");
             con.close();
@@ -273,6 +298,70 @@ public class Kasir extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_add_btnMouseClicked
+
+    private void update_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update_btnMouseClicked
+        String id = id_kasir.getText();
+        String name = nama_kasir.getText();
+        String pass = password.getText();
+        String gender = jenis_kelamin.getSelectedItem().toString();
+
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mohon mengisi id", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Minimarket", "root", "");
+            String query = "UPDATE tbl_kasir SET nama_kasir = ?, password = ?, jenis_kelamin = ?, WHERE id_kasir = ?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, id);
+            pst.setString(2, name);
+            pst.setString(3, pass);
+            pst.setString(4, gender);
+            int rowsUpdated = pst.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(this, "Data kasir berhasil diupdate");
+            } else {
+                JOptionPane.showMessageDialog(this, "ID kasir tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_update_btnMouseClicked
+
+    private void delete_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_btnMouseClicked
+        String id = id_kasir.getText();
+
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mohon mengisi ID kasir", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Minimarket", "root", "");
+            String query = "DELETE FROM tbl_kasir WHERE id_kasir = ?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, id);
+            int rowsDeleted = pst.executeUpdate();
+
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(this, "Data kasir berhasil dihapus");
+            } else {
+                JOptionPane.showMessageDialog(this, "ID kasir tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_delete_btnMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

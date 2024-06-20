@@ -4,6 +4,15 @@
  */
 package projectakhirpbo;
 
+//import com.sun.jdi.connect.spi.Connection;
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Asus
@@ -46,7 +55,6 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Asus\\Downloads\\image-Photoroom.png")); // NOI18N
         jLabel1.setText("jLabel1");
         jLabel1.setMaximumSize(new java.awt.Dimension(128, 128));
         jLabel1.setMinimumSize(new java.awt.Dimension(128, 128));
@@ -71,11 +79,16 @@ public class Login extends javax.swing.JFrame {
 
         label2.setFont(new java.awt.Font("Bahnschrift", 1, 16)); // NOI18N
         label2.setForeground(new java.awt.Color(255, 255, 255));
-        label2.setText("ID");
+        label2.setText("Username");
 
         inputid.setBackground(new java.awt.Color(255, 255, 255));
         inputid.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         inputid.setForeground(new java.awt.Color(153, 153, 153));
+        inputid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputidActionPerformed(evt);
+            }
+        });
 
         inputpassword.setBackground(new java.awt.Color(255, 255, 255));
         inputpassword.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -85,6 +98,11 @@ public class Login extends javax.swing.JFrame {
         rolebtn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         rolebtn.setForeground(new java.awt.Color(0, 153, 255));
         rolebtn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir" }));
+        rolebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rolebtnActionPerformed(evt);
+            }
+        });
 
         label3.setFont(new java.awt.Font("Century Gothic", 1, 28)); // NOI18N
         label3.setForeground(new java.awt.Color(255, 255, 255));
@@ -103,11 +121,21 @@ public class Login extends javax.swing.JFrame {
         loginbtn.setForeground(new java.awt.Color(51, 51, 51));
         loginbtn.setText("Login");
         loginbtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 0, true));
+        loginbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loginbtnMouseClicked(evt);
+            }
+        });
 
         label5.setAlignment(java.awt.Label.CENTER);
         label5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         label5.setForeground(new java.awt.Color(255, 255, 255));
         label5.setText("X");
+        label5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -180,6 +208,70 @@ public class Login extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void rolebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rolebtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rolebtnActionPerformed
+
+    Connection con = null;
+    Statement St = null;
+    ResultSet Rs = null;
+    
+    
+    private void loginbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginbtnMouseClicked
+        // TODO add your handling code here:
+        
+        if(rolebtn.getSelectedItem().toString().equals("Kasir")){
+            
+        
+        
+        String Query = "SELECT * from tbl_kasir WHERE nama_kasir='"+inputid.getText()+"' and password = '"+inputpassword.getText()+"'";
+        try {
+         con =DriverManager.getConnection("jdbc:mysql://localhost:3306/Minimarket", "root", "");
+         St = con.createStatement();
+         Rs = St.executeQuery(Query);
+         if (Rs.next()){
+             
+             new Seliing().setVisible(true);
+             this.dispose();
+         }
+         else{
+             JOptionPane.showMessageDialog(this, "wrong kasir id or pw");
+         }   
+        } catch (SQLException ex) 
+        {
+            ex.printStackTrace();
+        }
+        
+        }else{
+            String Query = "SELECT * from admin WHERE username='"+inputid.getText()+"' and password = '"+inputpassword.getText()+"'";
+        try {
+         con =DriverManager.getConnection("jdbc:mysql://localhost:3306/Minimarket", "root", "");
+         St = con.createStatement();
+         Rs = St.executeQuery(Query);
+         if (Rs.next()){
+             
+             new Seliing().setVisible(true);
+             this.dispose();
+         }
+         else{
+             JOptionPane.showMessageDialog(this, "wrong admin username or pw");
+         }   
+        } catch (SQLException ex) 
+        {
+            ex.printStackTrace();
+        }
+        }
+    }//GEN-LAST:event_loginbtnMouseClicked
+
+    private void label5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label5MouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_label5MouseClicked
+
+    private void inputidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputidActionPerformed
 
     /**
      * @param args the command line arguments

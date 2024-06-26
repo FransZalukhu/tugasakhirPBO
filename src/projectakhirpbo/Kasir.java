@@ -169,6 +169,11 @@ public class Kasir extends javax.swing.JFrame {
         tbl_kasir.setRowHeight(25);
         tbl_kasir.setSelectionBackground(new java.awt.Color(0, 153, 255));
         tbl_kasir.setSelectionForeground(new java.awt.Color(102, 102, 102));
+        tbl_kasir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_kasirMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_kasir);
 
         label5.setAlignment(java.awt.Label.CENTER);
@@ -435,6 +440,10 @@ public class Kasir extends javax.swing.JFrame {
         // Menutup form saat ini
         this.dispose();
     }//GEN-LAST:event_data_produkMouseClicked
+
+    private void tbl_kasirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_kasirMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbl_kasirMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

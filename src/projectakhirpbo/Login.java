@@ -55,6 +55,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectakhirpbo/logo`.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         jLabel1.setMaximumSize(new java.awt.Dimension(128, 128));
         jLabel1.setMinimumSize(new java.awt.Dimension(128, 128));
@@ -251,7 +252,7 @@ public class Login extends javax.swing.JFrame {
          Rs = St.executeQuery(Query);
          if (Rs.next()){
              
-             new Seliing().setVisible(true);
+             new Products().setVisible(true);
              this.dispose();
          }
          else{

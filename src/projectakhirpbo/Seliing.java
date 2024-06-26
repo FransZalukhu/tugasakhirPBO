@@ -44,8 +44,7 @@ public class Seliing extends javax.swing.JFrame {
                 Object[] row = {
                     rs.getInt("id_produk"),
                     rs.getString("nama_produk"),
-                    rs.getInt("jumlah_produk"),
-                    rs.getDouble("harga"),
+                    rs.getInt("harga"),
                     rs.getString("kategori"), //                    rs.getInt("tgl_masuk"),
                 };
                 model.addRow(row);
@@ -69,15 +68,16 @@ public class Seliing extends javax.swing.JFrame {
             }
         }
     }
-    
-       private void addTableListener() {
+
+    private void addTableListener() {
         productTable.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 int row = productTable.getSelectedRow();
                 if (row >= 0) {
                     ProdName.setText(productTable.getValueAt(row, 1).toString());
-                    prodkuan.setText(productTable.getValueAt(row, 2).toString());
-                    Harga.setText(productTable.getValueAt(row, 3).toString());
+                    Harga.setText(productTable.getValueAt(row, 2).toString());
+//                    prodkuan.setText(productTable.getValueAt(row, 3).toString());
+
                 }
             }
         });
@@ -116,6 +116,7 @@ public class Seliing extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         billText = new javax.swing.JTextArea();
         label8 = new java.awt.Label();
+        totalharga = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -210,13 +211,13 @@ public class Seliing extends javax.swing.JFrame {
         productTable.setForeground(new java.awt.Color(0, 153, 255));
         productTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID_PRODUK", "NAMA", "Kuantiti", "HARGA", "CATEGORY"
+                "ID_PRODUK", "NAMA", "HARGA", "CATEGORY"
             }
         ));
         productTable.setRowHeight(25);
@@ -283,11 +284,13 @@ public class Seliing extends javax.swing.JFrame {
                                         .addComponent(prodkuan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(ProdName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(bilid, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(192, 192, 192)
-                                .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                                .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 377, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,6 +300,10 @@ public class Seliing extends javax.swing.JFrame {
                                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(63, 63, 63))))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(260, 260, 260)
+                .addComponent(totalharga, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,7 +336,7 @@ public class Seliing extends javax.swing.JFrame {
                             .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -339,7 +346,9 @@ public class Seliing extends javax.swing.JFrame {
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalharga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -392,16 +401,16 @@ public class Seliing extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteActionPerformed
 
-        Double Uprice,ProdTot;
+//        Double Uprice,ProdTot;
 
     private void tambahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tambahMouseClicked
         // TODO add your handling code here:
 
         DefaultTableModel model = (DefaultTableModel) productTable.getModel();
         int Myindex = productTable.getSelectedRow();
-        Uprice = Double.valueOf(model.getValueAt(Myindex, 3).toString());
+//        Uprice = Double.valueOf(model.getValueAt(Myindex, 3).toString());
         ProdName.setText(model.getValueAt(Myindex, 1).toString());
-        ProdTot = Uprice * Integer.valueOf(prodkuan.getText());
+//        ProdTot = Uprice * Integer.valueOf(prodkuan.getText());
 
     }//GEN-LAST:event_tambahMouseClicked
 
@@ -409,25 +418,34 @@ public class Seliing extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_updateActionPerformed
 
+    Double total = 0.0;
+    Double Uprice;
     int i = 0;
     private void tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahActionPerformed
+//  DefaultTableModel model = (DefaultTableModel) productTable.getModel();
+        
+        int Myindex = productTable.getSelectedRow();
+
         if (prodkuan.getText().isEmpty() || ProdName.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Missing information");
         } else {
+            Uprice = Double.valueOf(Harga.getText()); // Update Uprice here
             i++;
-//            ProdTot = Uprice * Double.valueOf(prodkuan.getText());
+            double itemTotal = Uprice * Double.valueOf(prodkuan.getText()); // Calculate total for this item
+            total += itemTotal; // Add to the running total
             if (i == 1) {
-                billText.setText(billText.getText() + "======= Ebuliance Mart =======\n" + "\t NUM      PRODUCT     PRICE     JUMLAH      TOTAL\n\t" + i + "     " + ProdName.getText() + "     " +Harga+"     " +prodkuan.getText()+ "     "+ProdTot+"\n\t");
+                billText.setText(billText.getText() + "                                   ======= Ebuliance Mart =======\n" + "\t NUM     PRODUCT     PRICE     JUMLAH     TOTAL\n\t" + i + "            " + ProdName.getText() + "                 " + Harga.getText() + "       " + prodkuan.getText() + "               " + itemTotal + "\n\t");
             } else {
-                billText.setText(billText.getText()+ i+"     "+ProdName.getText()+"     "+Uprice+"   "+prodkuan.getText());
+                billText.setText(billText.getText() + i + "     " + ProdName.getText() + "     " + Uprice + "   " + prodkuan.getText() + "               " + itemTotal + "\n");
             }
-}
+            Double harga_total = total;
+            totalharga.setText("Total: " + harga_total);
+        }
     }//GEN-LAST:event_tambahActionPerformed
 
     private void prodkuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prodkuanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_prodkuanActionPerformed
-    
 
     /**
      * @param args the command line arguments
@@ -489,6 +507,7 @@ public class Seliing extends javax.swing.JFrame {
     private javax.swing.JTable productTable;
     private javax.swing.JButton refresh;
     private javax.swing.JButton tambah;
+    private javax.swing.JTextField totalharga;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }

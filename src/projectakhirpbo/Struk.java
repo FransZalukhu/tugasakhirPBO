@@ -21,9 +21,9 @@ import java.awt.print.*;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 
-public class Seliing extends javax.swing.JFrame {
+public class Struk extends javax.swing.JFrame {
 
-    public Seliing() {
+    public Struk() {
         initComponents();
         loadData();
         addTableListener();
@@ -408,18 +408,68 @@ public class Seliing extends javax.swing.JFrame {
         if (prodkuan.getText().isEmpty() || ProdName.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Missing information");
         } else {
-            Uprice = Double.valueOf(Harga.getText()); // Update Uprice here
-            i++;
-            double itemTotal = Uprice * Double.valueOf(prodkuan.getText()); // Calculate total for this item
-            total += itemTotal; // Add to the running total
-            if (i == 1) {
-                billText.setText(billText.getText() + "                                   ======= Ebuliance Mart =======\n" + "\t NUM     PRODUCT     PRICE     JUMLAH     TOTAL\n\t" + i + "            " + ProdName.getText() + "                 " + Harga.getText() + "       " + prodkuan.getText() + "               " + itemTotal + "\n\t");
-            } else {
-                billText.setText(billText.getText() + i + "     " + ProdName.getText() + "     " + Uprice + "   " + prodkuan.getText() + "               " + itemTotal + "\n");
+            int kuantiti = Integer.parseInt(prodkuan.getText());
+            int idProduk = Integer.parseInt(productTable.getValueAt(Myindex, 0).toString()); // Ambil id_produk dari tabel
+
+            try {
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Minimarket", "root", "");
+                Statement st = con.createStatement();
+
+                // Ambil jumlah_produk saat ini dari database
+                ResultSet rs = st.executeQuery("SELECT jumlah_produk FROM tbl_produk WHERE id_produk = " + idProduk);
+                if (rs.next()) {
+                    int jumlahProdukSaatIni = rs.getInt("jumlah_produk");
+
+                    if (kuantiti > jumlahProdukSaatIni) {
+                        JOptionPane.showMessageDialog(this, "Jumlah kuantiti melebihi stok yang tersedia");
+                    } else {
+                        // Kurangi jumlah_produk di database
+                        int jumlahProdukBaru = jumlahProdukSaatIni - kuantiti;
+                        st.executeUpdate("UPDATE tbl_produk SET jumlah_produk = " + jumlahProdukBaru + " WHERE id_produk = " + idProduk);
+
+                        // Tambahkan item ke struk
+                        Uprice = Double.valueOf(Harga.getText()); // Update Uprice here
+                        i++;
+                        double itemTotal = Uprice * kuantiti; // Calculate total for this item
+                        total += itemTotal; // Add to the running total
+                        if (i == 1) {
+                            billText.setText(billText.getText() + "                                   ======= Ebuliance Mart =======\n" + "\t NUM     PRODUCT     PRICE     JUMLAH     TOTAL\n\t" + i + "            " + ProdName.getText() + "                 " + Harga.getText() + "       " + prodkuan.getText() + "               " + itemTotal + "\n\t");
+                        } else {
+                            billText.setText(billText.getText() + i + "     " + ProdName.getText() + "     " + Uprice + "   " + prodkuan.getText() + "               " + itemTotal + "\n");
+                        }
+                        Double harga_total = total;
+                        totalharga.setText("Total: " + harga_total);
+                    }
+                }
+
+                // Tutup koneksi dan statement
+                rs.close();
+                st.close();
+                con.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
             }
-            Double harga_total = total;
-            totalharga.setText("Total: " + harga_total);
         }
+
+//        int Myindex = productTable.getSelectedRow();
+//
+//        if (prodkuan.getText().isEmpty() || ProdName.getText().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Missing information");
+//        } else {
+//            Uprice = Double.valueOf(Harga.getText()); // Update Uprice here
+//            i++;
+//            double itemTotal = Uprice * Double.valueOf(prodkuan.getText()); // Calculate total for this item
+//            total += itemTotal; // Add to the running total
+//            if (i == 1) {
+//                billText.setText(billText.getText() + "                                   ======= Ebuliance Mart =======\n" + "\t NUM     PRODUCT     PRICE     JUMLAH     TOTAL\n\t" + i + "            " + ProdName.getText() + "                 " + Harga.getText() + "       " + prodkuan.getText() + "               " + itemTotal + "\n\t");
+//            } else {
+//                billText.setText(billText.getText() + i + "     " + ProdName.getText() + "     " + Uprice + "   " + prodkuan.getText() + "               " + itemTotal + "\n");
+//            }
+//            Double harga_total = total;
+//            totalharga.setText("Total: " + harga_total);
+//        }
     }//GEN-LAST:event_tambahActionPerformed
 
 //        Double Uprice,ProdTot;
@@ -472,20 +522,21 @@ public class Seliing extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Seliing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Struk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Seliing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Struk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Seliing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Struk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Seliing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Struk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Seliing().setVisible(true);
+                new Struk().setVisible(true);
             }
         });
     }

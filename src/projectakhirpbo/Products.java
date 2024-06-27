@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import net.proteanit.sql.DbUtils;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import com.toedter.calendar.JDateChooser;
+//import com.toedter.calendar.JDateChooser;
 
 /**
  *
@@ -41,7 +41,7 @@ public class Products extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+
     private void addTableListener() {
         tbl_produk.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
@@ -52,7 +52,7 @@ public class Products extends javax.swing.JFrame {
                     jumlah_produk.setText(tbl_produk.getValueAt(row, 2).toString());
                     harga.setText(tbl_produk.getValueAt(row, 3).toString());
                     kategori.setSelectedItem(tbl_produk.getValueAt(row, 4).toString());
-                    
+
                     java.sql.Date sqlDate = (java.sql.Date) tbl_produk.getValueAt(row, 5);
                     tgl_masuk.setDate(sqlDate);
                 }
@@ -85,6 +85,9 @@ public class Products extends javax.swing.JFrame {
         jumlah_produk = new javax.swing.JTextField();
         label8 = new java.awt.Label();
         tgl_masuk = new com.toedter.calendar.JDateChooser();
+        backbtn = new javax.swing.JButton();
+        data_kasir = new java.awt.Label();
+        data_produk = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -196,13 +199,33 @@ public class Products extends javax.swing.JFrame {
         label8.setForeground(new java.awt.Color(0, 153, 255));
         label8.setText("TANGGAL MASUK");
 
+        backbtn.setBackground(new java.awt.Color(0, 153, 255));
+        backbtn.setForeground(new java.awt.Color(255, 255, 255));
+        backbtn.setText("Kembali");
+        backbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backbtnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(320, 320, 320))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(356, 356, 356))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(backbtn)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,8 +246,8 @@ public class Products extends javax.swing.JFrame {
                                             .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(tgl_masuk, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(111, 111, 111)))
-                        .addGap(49, 49, 49))
+                                .addGap(148, 148, 148)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,19 +262,13 @@ public class Products extends javax.swing.JFrame {
                             .addComponent(harga)
                             .addComponent(kategori, 0, 134, Short.MAX_VALUE))
                         .addGap(160, 160, 160))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(320, 320, 320))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(356, 356, 356))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(14, 14, 14)
+                .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -287,27 +304,56 @@ public class Products extends javax.swing.JFrame {
                                 .addComponent(kategori, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tgl_masuk, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(158, 158, 158)))
+                        .addGap(161, 161, 161)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
 
         label2.getAccessibleContext().setAccessibleName("ID ");
 
+        data_kasir.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        data_kasir.setForeground(new java.awt.Color(255, 255, 255));
+        data_kasir.setText("Data Kasir");
+        data_kasir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                data_kasirMouseClicked(evt);
+            }
+        });
+
+        data_produk.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        data_produk.setForeground(new java.awt.Color(255, 255, 255));
+        data_produk.setText("Data Produk");
+        data_produk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                data_produkMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(139, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(data_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(data_produk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addComponent(data_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(data_produk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -315,9 +361,7 @@ public class Products extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,7 +383,6 @@ public class Products extends javax.swing.JFrame {
         String harga_produk = harga.getText();
         String category = kategori.getSelectedItem().toString();
         java.util.Date utilDate = tgl_masuk.getDate();
-        
 
         if (id.isEmpty() || name.isEmpty() || jumlah.isEmpty() || harga_produk.isEmpty() || utilDate == null) {
             JOptionPane.showMessageDialog(this, "Mohon mengisi semua field", "Error", JOptionPane.ERROR_MESSAGE);
@@ -357,7 +400,7 @@ public class Products extends javax.swing.JFrame {
             pst.setString(3, jumlah);
             pst.setString(4, harga_produk);
             pst.setString(5, category);
-            pst.setDate(6, sqlDate); 
+            pst.setDate(6, sqlDate);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(this, "Produk berhasil ditambahkan");
             con.close();
@@ -391,8 +434,8 @@ public class Products extends javax.swing.JFrame {
             pst.setString(2, jumlah);
             pst.setString(3, harga_produk);
             pst.setString(4, category);
-            pst.setDate(6, sqlDate); 
-            pst.setString(5, id);
+            pst.setDate(5, sqlDate);
+            pst.setString(6, id);
             int rowsUpdated = pst.executeUpdate();
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(this, "Produk berhasil diperbarui");
@@ -436,6 +479,40 @@ public class Products extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_delete_btnMouseClicked
 
+    private void data_kasirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_data_kasirMouseClicked
+        // Membuat instance dari form kasir
+        Kasir kasirForm = new Kasir();
+
+        // Menampilkan form kasir
+        kasirForm.setVisible(true);
+
+        // Menutup form saat ini
+        this.dispose();
+    }//GEN-LAST:event_data_kasirMouseClicked
+
+    private void data_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_data_produkMouseClicked
+        // Membuat instance dari form produk
+        Products productsForm = new Products();
+
+        // Menampilkan form produk
+        productsForm.setVisible(true);
+
+        // Menutup form saat ini
+        this.dispose();
+    }//GEN-LAST:event_data_produkMouseClicked
+
+    private void backbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbtnMouseClicked
+        // Membuat instance dari form Home_Admin
+        Home_Admin homeAdminForm = new Home_Admin();
+
+        // Menampilkan form Home_Admin
+        homeAdminForm.setVisible(true);
+
+        // Menutup form login
+        this.dispose();
+    }//GEN-LAST:event_backbtnMouseClicked
+
+    
     /**
      * @param args the command line arguments
      */
@@ -473,6 +550,9 @@ public class Products extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_btn;
+    private javax.swing.JButton backbtn;
+    private java.awt.Label data_kasir;
+    private java.awt.Label data_produk;
     private javax.swing.JButton delete_btn;
     private javax.swing.JTextField harga;
     private javax.swing.JTextField id_produk;

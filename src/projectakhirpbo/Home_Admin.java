@@ -153,7 +153,14 @@ public class Home_Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_data_produkMouseClicked
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
-        // TODO add your handling code here:
+        // Membuat instance dari form login
+        Login loginForm = new Login();
+
+        // Menampilkan form login
+        loginForm.setVisible(true);
+
+        // Menutup form saat ini
+        this.dispose();
     }//GEN-LAST:event_logoutMouseClicked
 
     /**

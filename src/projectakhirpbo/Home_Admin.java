@@ -132,7 +132,7 @@ public class Home_Admin extends javax.swing.JFrame {
 
     private void data_kasirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_data_kasirMouseClicked
         // Membuat instance dari form kasir
-        Kasir kasirForm = new Kasir();
+        Data_Kasir kasirForm = new Data_Kasir();
 
         // Menampilkan form kasir
         kasirForm.setVisible(true);
@@ -143,7 +143,7 @@ public class Home_Admin extends javax.swing.JFrame {
 
     private void data_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_data_produkMouseClicked
         // Membuat instance dari form produk
-        Products productsForm = new Products();
+        Data_Products productsForm = new Data_Products();
 
         // Menampilkan form produk
         productsForm.setVisible(true);

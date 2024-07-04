@@ -114,6 +114,7 @@ public class Struk extends javax.swing.JFrame {
         label8 = new java.awt.Label();
         totalharga = new java.awt.Label();
         print = new javax.swing.JButton();
+        total_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -229,6 +230,15 @@ public class Struk extends javax.swing.JFrame {
             }
         });
 
+        total_btn.setBackground(new java.awt.Color(255, 153, 0));
+        total_btn.setForeground(new java.awt.Color(255, 255, 255));
+        total_btn.setText("SELESAIKAN");
+        total_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                total_btnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -237,7 +247,7 @@ public class Struk extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(58, 58, 58)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(tambah)
                                 .addGap(78, 78, 78)
@@ -253,7 +263,8 @@ public class Struk extends javax.swing.JFrame {
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(prodkuan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(ProdName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+                            .addComponent(totalharga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(230, 230, 230)
                         .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -268,11 +279,10 @@ public class Struk extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(totalharga, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(226, 226, 226)
-                        .addComponent(print))
+                        .addGap(81, 81, 81)
+                        .addComponent(print)
+                        .addGap(199, 199, 199)
+                        .addComponent(total_btn))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(385, 385, 385)
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -308,7 +318,9 @@ public class Struk extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(totalharga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(print))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(print)
+                            .addComponent(total_btn)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -401,75 +413,60 @@ public class Struk extends javax.swing.JFrame {
     }//GEN-LAST:event_refreshActionPerformed
 
     private void tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahActionPerformed
-        //  DefaultTableModel model = (DefaultTableModel) productTable.getModel();
-
         int Myindex = productTable.getSelectedRow();
 
-        if (prodkuan.getText().isEmpty() || ProdName.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Missing information");
-        } else {
-            int kuantiti = Integer.parseInt(prodkuan.getText());
-            int idProduk = Integer.parseInt(productTable.getValueAt(Myindex, 0).toString()); // Ambil id_produk dari tabel
+    if (prodkuan.getText().isEmpty() || ProdName.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Missing information");
+    } else {
+        int kuantiti = Integer.parseInt(prodkuan.getText());
+        int idProduk = Integer.parseInt(productTable.getValueAt(Myindex, 0).toString()); // Ambil id_produk dari tabel
 
-            try {
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Minimarket", "root", "");
-                Statement st = con.createStatement();
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Minimarket", "root", "");
+            Statement st = con.createStatement();
 
-                // Ambil jumlah_produk saat ini dari database
-                ResultSet rs = st.executeQuery("SELECT jumlah_produk FROM tbl_produk WHERE id_produk = " + idProduk);
-                if (rs.next()) {
-                    int jumlahProdukSaatIni = rs.getInt("jumlah_produk");
+            // Ambil jumlah_produk saat ini dari database
+            ResultSet rs = st.executeQuery("SELECT jumlah_produk, harga FROM tbl_produk WHERE id_produk = " + idProduk);
+            if (rs.next()) {
+                int jumlahProdukSaatIni = rs.getInt("jumlah_produk");
+                double hargaProduk = rs.getDouble("harga");
 
-                    if (kuantiti > jumlahProdukSaatIni) {
-                        JOptionPane.showMessageDialog(this, "Jumlah kuantiti melebihi stok yang tersedia");
-                    } else {
-                        // Kurangi jumlah_produk di database
-                        int jumlahProdukBaru = jumlahProdukSaatIni - kuantiti;
-                        st.executeUpdate("UPDATE tbl_produk SET jumlah_produk = " + jumlahProdukBaru + " WHERE id_produk = " + idProduk);
+                if (kuantiti > jumlahProdukSaatIni) {
+                    JOptionPane.showMessageDialog(this, "Jumlah kuantiti melebihi stok yang tersedia");
+                } else {
+                    // Kurangi jumlah_produk di database
+                    int jumlahProdukBaru = jumlahProdukSaatIni - kuantiti;
+                    st.executeUpdate("UPDATE tbl_produk SET jumlah_produk = " + jumlahProdukBaru + " WHERE id_produk = " + idProduk);
 
-                        // Tambahkan item ke struk
-                        Uprice = Double.valueOf(Harga.getText()); // Update Uprice here
-                        i++;
-                        double itemTotal = Uprice * kuantiti; // Calculate total for this item
-                        total += itemTotal; // Add to the running total
-                        if (i == 1) {
-                            billText.setText(billText.getText() + "                                   ======= Ebuliance Mart =======\n" + "\t NUM     PRODUCT     PRICE     JUMLAH     TOTAL\n\t" + i + "            " + ProdName.getText() + "                 " + Harga.getText() + "       " + prodkuan.getText() + "               " + itemTotal + "\n\t");
-                        } else {
-                            billText.setText(billText.getText() + i + "     " + ProdName.getText() + "     " + Uprice + "   " + prodkuan.getText() + "               " + itemTotal + "\n");
-                        }
-                        Double harga_total = total;
-                        totalharga.setText("Total: " + harga_total);
+                    // Tambahkan item ke struk dengan format tabel
+                    double itemTotal = hargaProduk * kuantiti; // Calculate total for this item
+                    total += itemTotal; // Add to the running total
+                    if (i == 0) {
+                        billText.setText(String.format("\t======= Ebullience Mart =======\n"));
+                        billText.append(String.format("%-5s %-20s %-10s %-10s %-10s\n", "No", "Product", "Quantity", "Price", "Total"));
                     }
+                    i++;
+
+                    // Format untuk menambahkan item ke struk sebagai tabel
+                    String itemInfo = String.format("%-5d %-20s %-10d %-10.2f %-10.2f\n",
+                            i, ProdName.getText(), kuantiti, hargaProduk, itemTotal);
+                    billText.append(itemInfo);
+
+                    // Update total harga pada struk
+                    totalharga.setText(String.format("Total: Rp %.2f", total));
                 }
-
-                // Tutup koneksi dan statement
-                rs.close();
-                st.close();
-                con.close();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
             }
-        }
 
-//        int Myindex = productTable.getSelectedRow();
-//
-//        if (prodkuan.getText().isEmpty() || ProdName.getText().isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Missing information");
-//        } else {
-//            Uprice = Double.valueOf(Harga.getText()); // Update Uprice here
-//            i++;
-//            double itemTotal = Uprice * Double.valueOf(prodkuan.getText()); // Calculate total for this item
-//            total += itemTotal; // Add to the running total
-//            if (i == 1) {
-//                billText.setText(billText.getText() + "                                   ======= Ebuliance Mart =======\n" + "\t NUM     PRODUCT     PRICE     JUMLAH     TOTAL\n\t" + i + "            " + ProdName.getText() + "                 " + Harga.getText() + "       " + prodkuan.getText() + "               " + itemTotal + "\n\t");
-//            } else {
-//                billText.setText(billText.getText() + i + "     " + ProdName.getText() + "     " + Uprice + "   " + prodkuan.getText() + "               " + itemTotal + "\n");
-//            }
-//            Double harga_total = total;
-//            totalharga.setText("Total: " + harga_total);
-//        }
+            // Tutup koneksi dan statement
+            rs.close();
+            st.close();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
+        }
+    }
     }//GEN-LAST:event_tambahActionPerformed
 
 //        Double Uprice,ProdTot;
@@ -492,6 +489,13 @@ public class Struk extends javax.swing.JFrame {
         clearFields();
         loadData();
     }//GEN-LAST:event_refreshMouseClicked
+
+    private void total_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_total_btnMouseClicked
+        // Tambahkan total harga ke billText
+        Double harga_total = total;
+        billText.append(String.format("\n%-5s %-20s %-10.2f\n", "", "Total:", total));
+        totalharga.setText(String.format("Total: Rp %.2f", harga_total));
+    }//GEN-LAST:event_total_btnMouseClicked
 
     private void clearFields() {
         ProdName.setText("");
@@ -562,6 +566,7 @@ public class Struk extends javax.swing.JFrame {
     private javax.swing.JTable productTable;
     private javax.swing.JButton refresh;
     private javax.swing.JButton tambah;
+    private javax.swing.JButton total_btn;
     private java.awt.Label totalharga;
     // End of variables declaration//GEN-END:variables
 }

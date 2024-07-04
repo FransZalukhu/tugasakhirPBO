@@ -18,12 +18,12 @@ import java.awt.event.MouseEvent;
  *
  * @author Asus
  */
-public class Products extends javax.swing.JFrame {
+public class Data_Products extends javax.swing.JFrame {
 
     /**
      * Creates new form Products
      */
-    public Products() {
+    public Data_Products() {
         initComponents();
         ReadProduct();
         addTableListener();
@@ -481,7 +481,7 @@ public class Products extends javax.swing.JFrame {
 
     private void data_kasirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_data_kasirMouseClicked
         // Membuat instance dari form kasir
-        Kasir kasirForm = new Kasir();
+        Data_Kasir kasirForm = new Data_Kasir();
 
         // Menampilkan form kasir
         kasirForm.setVisible(true);
@@ -492,7 +492,7 @@ public class Products extends javax.swing.JFrame {
 
     private void data_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_data_produkMouseClicked
         // Membuat instance dari form produk
-        Products productsForm = new Products();
+        Data_Products productsForm = new Data_Products();
 
         // Menampilkan form produk
         productsForm.setVisible(true);
@@ -530,20 +530,21 @@ public class Products extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Products.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Data_Products.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Products.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Data_Products.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Products.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Data_Products.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Products.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Data_Products.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Products().setVisible(true);
+                new Data_Products().setVisible(true);
             }
         });
     }

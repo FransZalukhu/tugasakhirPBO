@@ -19,9 +19,9 @@ import java.awt.event.MouseEvent;
  *
  * @author Asus
  */
-public class Kasir extends javax.swing.JFrame {
+public class Data_Kasir extends javax.swing.JFrame {
 
-    public Kasir() {
+    public Data_Kasir() {
         initComponents();
         ReadSeller();
         addTableListener();
@@ -48,7 +48,6 @@ public class Kasir extends javax.swing.JFrame {
                     id_kasir.setText(tbl_kasir.getValueAt(row, 0).toString());
                     nama_kasir.setText(tbl_kasir.getValueAt(row, 1).toString());
                     password.setText(tbl_kasir.getValueAt(row, 2).toString());
-                    jenis_kelamin.setSelectedItem(tbl_kasir.getValueAt(row, 3).toString());
                 }
             }
         });
@@ -65,8 +64,6 @@ public class Kasir extends javax.swing.JFrame {
         label2 = new java.awt.Label();
         label3 = new java.awt.Label();
         nama_kasir = new javax.swing.JTextField();
-        label6 = new java.awt.Label();
-        jenis_kelamin = new javax.swing.JComboBox<>();
         add_btn = new javax.swing.JButton();
         update_btn = new javax.swing.JButton();
         delete_btn = new javax.swing.JButton();
@@ -102,20 +99,6 @@ public class Kasir extends javax.swing.JFrame {
         label3.setText("NAMA");
 
         nama_kasir.setBackground(new java.awt.Color(255, 255, 255));
-
-        label6.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        label6.setForeground(new java.awt.Color(0, 153, 255));
-        label6.setText("JENIS KELAMIN");
-
-        jenis_kelamin.setBackground(new java.awt.Color(0, 153, 255));
-        jenis_kelamin.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jenis_kelamin.setForeground(new java.awt.Color(255, 255, 255));
-        jenis_kelamin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-Laki", "Perempuan" }));
-        jenis_kelamin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jenis_kelaminActionPerformed(evt);
-            }
-        });
 
         add_btn.setBackground(new java.awt.Color(0, 204, 51));
         add_btn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -158,13 +141,13 @@ public class Kasir extends javax.swing.JFrame {
         tbl_kasir.setForeground(new java.awt.Color(0, 153, 255));
         tbl_kasir.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID_KASIR", "NAMA", "JENIS_KELAMIN", "PASSWORD"
+                "ID_KASIR", "NAMA", "PASSWORD"
             }
         ));
         tbl_kasir.setRowHeight(25);
@@ -211,13 +194,9 @@ public class Kasir extends javax.swing.JFrame {
                             .addComponent(nama_kasir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(id_kasir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(password)
-                            .addComponent(jenis_kelamin, 0, 134, Short.MAX_VALUE))
+                        .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
+                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(160, 160, 160))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -252,15 +231,10 @@ public class Kasir extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nama_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jenis_kelamin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(40, 40, 40)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(41, 41, 41)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(add_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(update_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,15 +307,10 @@ public class Kasir extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jenis_kelaminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenis_kelaminActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jenis_kelaminActionPerformed
-
     private void add_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_btnMouseClicked
         String id = id_kasir.getText();
         String name = nama_kasir.getText();
         String pass = password.getText();
-        String gender = jenis_kelamin.getSelectedItem().toString();
 
         if (id.isEmpty() || name.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Mohon mengisi semua field", "Error", JOptionPane.ERROR_MESSAGE);
@@ -351,12 +320,11 @@ public class Kasir extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Minimarket", "root", "");
-            String query = "INSERT INTO tbl_kasir VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO tbl_kasir VALUES (?, ?, ?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, id);
             pst.setString(2, name);
             pst.setString(3, pass);
-            pst.setString(4, gender);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(this, "Data kasir berhasil ditambahkan");
             con.close();
@@ -371,9 +339,8 @@ public class Kasir extends javax.swing.JFrame {
         String id = id_kasir.getText();
         String name = nama_kasir.getText();
         String pass = password.getText();
-        String gender = jenis_kelamin.getSelectedItem().toString();
 
-        if (id.isEmpty() || name.isEmpty() || pass.isEmpty() || gender.isEmpty()) {
+        if (id.isEmpty() || name.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Mohon mengisi semua field", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -381,12 +348,11 @@ public class Kasir extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Minimarket", "root", "");
-            String query = "UPDATE tbl_kasir SET nama_kasir = ?, password = ?, jenis_kelamin = ? WHERE id_kasir = ? ";
+            String query = "UPDATE tbl_kasir SET nama_kasir = ?, password = ? WHERE id_kasir = ? ";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, name);
             pst.setString(2, pass);
-            pst.setString(3, gender);
-            pst.setString(4, id);
+            pst.setString(3, id);
             int rowsUpdated = pst.executeUpdate();
 
             if (rowsUpdated > 0) {
@@ -435,7 +401,7 @@ public class Kasir extends javax.swing.JFrame {
 
     private void data_kasirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_data_kasirMouseClicked
         // Membuat instance dari form kasir
-        Kasir kasirForm = new Kasir();
+        Data_Kasir kasirForm = new Data_Kasir();
 
         // Menampilkan form kasir
         kasirForm.setVisible(true);
@@ -446,7 +412,7 @@ public class Kasir extends javax.swing.JFrame {
 
     private void data_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_data_produkMouseClicked
         // Membuat instance dari form produk
-        Products productsForm = new Products();
+        Data_Products productsForm = new Data_Products();
 
         // Menampilkan form produk
         productsForm.setVisible(true);
@@ -484,20 +450,21 @@ public class Kasir extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Data_Kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Data_Kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Data_Kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Data_Kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Kasir().setVisible(true);
+                new Data_Kasir().setVisible(true);
             }
         });
     }
@@ -512,12 +479,10 @@ public class Kasir extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<String> jenis_kelamin;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.Label label3;
     private java.awt.Label label5;
-    private java.awt.Label label6;
     private java.awt.Label label7;
     private javax.swing.JTextField nama_kasir;
     private javax.swing.JTextField password;
